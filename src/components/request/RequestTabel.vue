@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  props: ['cls'],
+  props: ['requests'],
 
 };
 </script>
