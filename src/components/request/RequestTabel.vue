@@ -11,15 +11,19 @@
         <th>Action</th>
       </tr>
     </thead>
-    <tr  v-for="(r, idx) in requests" :key="r.id">
+    <tr v-for="(r, idx) in requests" :key="r.id">
       <td>{{ idx + 1 }}</td>
-      <td>{{r.name}}</td>
-      <td>{{r.phone}}</td>
-      <td>{{r.amount}}</td>
-      <td>{{r.status}}</td>
+      <td>{{ r.name }}</td>
+      <td>{{ r.phone }}</td>
+      <td>{{ r.amount }}</td>
+      <td>{{ r.status }}</td>
       <td>
-        <router-link v-slot="{navigate}" custom :to="{name: 'Request', params: {id: r.id} }">
-          <button class="btn primary" @click="navigate"></button>
+        <router-link
+          v-slot="{ navigate }"
+          custom
+          :to="{ name: 'Request', params: { id: r.id } }"
+        >
+          <button class="btn primary" @click="navigate">Open</button>
         </router-link>
       </td>
     </tr>
@@ -30,7 +34,9 @@
 <script>
 export default {
   props: ['requests'],
-
+  setup(props) {
+    console.log(props.requests, 'props');
+  },
 };
 </script>
 

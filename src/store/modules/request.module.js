@@ -2,7 +2,6 @@ import axios from "../../axios/request"
 import store from "../index"
 export default {
   namespaced: true,
-
   state() {
     return {
       requests: []
@@ -19,16 +18,27 @@ export default {
   actions: {
     async create({ commit, dispatch }, payload) {
       try {
-        console.log(data, 'data');
         const token = store.getters['auth/token']
         const { data } = await axios.post(`/requests.json?auth=${token}`, payload)
-        commit('addRequest', {...payload, id: data.name})
-        console.log(data, 'data');
+        commit('addRequest', { ...payload, id: data.name })
 
         dispatch('setMessage', {
           value: 'request is created',
           type: 'primary'
         }, { root: true })
+      } catch (e) {
+        dispatch('setMessage', {
+          value: e.message,
+          type: 'danger'
+        }, { root: true })
+      }
+    },
+    async load({commit, dispatch}) {
+      try {
+        const token = store.getters['auth/token']
+        const { data } = await axios.get(`/requests.json?auth=${token}`)
+        const requests=Object.keys(data).map(id=>({...data[id], id}))
+        commit('setRequests', requests)
       } catch (e) {
         dispatch('setMessage', {
           value: e.message,
