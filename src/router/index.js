@@ -12,15 +12,15 @@ const routes = [
       auth: true
     }
   },
-  // {
-  //   path: '/',
-  //   name: 'Home',
-  //   component: Home,
-  //   meta: {
-  //     layout: 'main',
-  //     auth: true
-  //   }
-  // },
+  {
+    path: '/',
+    name: 'Home',
+    component: Home,
+    meta: {
+      layout: 'main',
+      auth: true
+    }
+  },
   {
     path: '/help',
     name: 'Help',
@@ -39,7 +39,16 @@ const routes = [
       auth: false
 
     }
-  }
+  },
+  {
+    path: '/request/:id',
+    name: 'Request',
+    component: () => import('../views/Request.vue'),
+    meta: {
+      layout: 'main',
+      auth: true
+    }
+  },
 ]
 
 const router = createRouter({

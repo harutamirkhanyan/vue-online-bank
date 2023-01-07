@@ -23,7 +23,7 @@
           custom
           :to="{ name: 'Request', params: { id: r.id } }"
         >
-          <button class="btn primary" @click="navigate">Open</button>
+          <button class="btn" @click="navigate">Open</button>
         </router-link>
       </td>
     </tr>
