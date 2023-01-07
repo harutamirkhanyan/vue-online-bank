@@ -6,6 +6,7 @@
         Add request
       </button>
     </template>
+    <request-filter v-model="filter"></request-filter>
     <requests-table :requests="requests"></requests-table>
     <teleport to="body">
       <app-modal v-if="modal" title="New request" @close="modal = false">
@@ -24,11 +25,14 @@ import AppPage from '../components/ui/AppPage.vue';
 import RequestModal from '../components/request/RequestModal.vue';
 import RequestsTable from '../components/request/RequestTabel.vue';
 import AppLoader from '../components/ui/AppLoader.vue';
+import RequestFilter from '../components/request/RequestFilter.vue';
+
 export default {
   setup() {
     const store = useStore();
     const modal = ref(false);
     const loading = ref(false);
+    const filter = ref({});
 
     onMounted(async () => {
       loading.value = true;
@@ -36,16 +40,37 @@ export default {
       loading.value = false;
     });
 
-    const requests = computed(() => store.getters['request/requests']);
-    console.log(requests, 'requests home');
+    const requests = computed(() =>
+      store.getters['request/requests']
+        .filter((request) => {
+          if (filter.value.name) {
+            return request.name.includes(filter.value.name);
+          }
+          return request;
+        })
+        .filter((request) => {
+          if (filter.value.status) {
+          return filter.value.status===request.status
+          }
+          return request
+        })
+    );
 
     return {
       modal,
       requests,
       loading,
+      filter,
     };
   },
 
-  components: { AppPage, RequestsTable, AppModal, RequestModal, AppLoader },
+  components: {
+    AppPage,
+    RequestsTable,
+    AppModal,
+    RequestModal,
+    AppLoader,
+    RequestFilter,
+  },
 };
 </script>
