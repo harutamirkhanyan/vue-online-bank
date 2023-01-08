@@ -8,6 +8,8 @@ if (process.env.NODE_ENV === 'devlopment') {
 }
 export default createStore({
   state: {
+    message: null,
+    sidebar: false
   },
   mutations: {
     setMessage(state, message) {

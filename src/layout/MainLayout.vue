@@ -1,5 +1,6 @@
 <template>
-    <the-navbar></the-navbar>
+  <the-navbar/>
+  <the-sidebar/>
   <div class="container with-nav">
     <router-view />
   </div>
@@ -7,8 +8,9 @@
 
 <script>
 import TheNavbar from '@/components/TheNavbar';
+import TheSidebar from '../components/TheSidebar.vue';
 export default {
-  components: { TheNavbar },
+  components: { TheNavbar, TheSidebar },
 };
 </script>
 
